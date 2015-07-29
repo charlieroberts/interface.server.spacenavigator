@@ -1,19 +1,26 @@
 #interface.server.gamepad
 
-This module is designed to work with interface.server, but can also be used standalone. Currently only three joysticks are supported: Logitech Dual Action, Logitech RumblePad and the Mega World Thrustmaster.
+This module links SpaceNavigators connected to OS X computers to Interface.Server. It is a thin wrapper around the *spacemouse* module.
 
-Usage:
+## Installation
 
-```javascript
-var ISG = require('../index.js')
+From the Interface.Server folder, run
+    npm install interface.server.gamepad
 
-ISG.onload = function() {
-  var gamepad = ISG.devices( 'Logitech USB RumblePad 2 USB #1' )
-  
-  gamepad.on( 'leftX', function( d ){ console.log( "left x value",  d ) } )
-}
-```
+After installing, make sure to add the spacenavigator field to the IO list in the main Interface.Server config.js file. You can define a *rate* property here in Hz to control the speed of message output.
 
-All device names are suffixed with a number in case there is more than one of the same device on a system.
+Example config.js
 
-Devices are organized by manufactured / product in the `devices` directory. You can look at those files to see the names of signals to subscribe to.
+    module.exports = {
+        pathToApplications: __dirname + '/applications',
+    
+        transports: {
+          osc : {
+            remoteControlPort: 12000,
+          },
+        },
+    
+        IO : {
+          spacenavigator : { rate: 1/30 } // 30 Hz update rate, 60 is default
+        }
+    }
