@@ -45,7 +45,7 @@ SN = {
       }
     })
     
-    SN.initalized = true
+    SN.initialized = true
   }
 }
 
